@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "SmartGasMetering"
 include(":app")
- 
+include(":lib")

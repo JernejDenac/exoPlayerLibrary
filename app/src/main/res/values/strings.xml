@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">SmartGasMetering</string>
+    <string name="add_meter_button">Add Meter</string>
+    <string name="number_text_rcycler">Num.:</string>
+    <string name="type_text_recycler">Manufacturer:</string>
+    <string name="battery_status">Battery:</string>
+    <string name="location">Location:</string>
+    <string name="settings_button">settings_button\n</string>
+    <string name="delete_confirmation_message">Do you wish to delete this element?</string>
+    <string name="delete_button_text">Delete\n</string>
+    <string name="cancel_button_text">Cencel</string>
+
+    <string name="info_title">Meter&#160;</string>
+    <string name="info_manufacturer">Manufacturer: </string>
+    <string name="info_type">Type: </string>
+    <string name="info_gas_consumption">Gas Consumption: </string>
+    <string name="info_flow_rate">Flow Rate: </string>
+    <string name="info_relative_reading">Relative Reading: </string>
+    <string name="info_absolute_reading">Absolute Reading: </string>
+    <string name="info_operating_time">Operating Time: </string>
+    <string name="info_battery_status">Battery Status:</string>
+    <string name="info_remote_reading_enabled">Remote Reading: </string>
+    <string name="info_remote_reading_enabled_value">Enabled</string>
+    <string name="info_remote_reading_disabled_value">Disabled</string>
+    <string name="info_location">Location: </string>
+    <string name="close_drawer">Close</string>
+    <string name="info_coordinates">"Coordinates:"</string>
+    <string name="refresh_data">Refresh</string>
 </resources>
