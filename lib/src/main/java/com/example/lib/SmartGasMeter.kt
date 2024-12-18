@@ -1,7 +1,9 @@
 package com.example.lib
-
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.util.UUID
 
+@Parcelize
 class SmartGasMeter(
     val gasConsumption: Double,//m3
     val flowRate: Double,//m3/h , hitrost s katero plin prehaja števec
@@ -16,7 +18,7 @@ class SmartGasMeter(
     val location: String,
     val coordinates: Pair<Double, Double>,
     var id:String = UUID.randomUUID().toString()
-) {
+): Parcelable {
     override fun toString(): String {
         return """
             SmartMeter(

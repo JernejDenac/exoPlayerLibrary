@@ -3,41 +3,42 @@ package com.example.smartgasmetering
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Rect
-import android.graphics.Typeface
-import android.location.GpsStatus
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.lib.SmartGasMeter
 import com.example.lib.SmartGasMeterCollection
 import com.example.smartgasmetering.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 import org.osmdroid.api.IMapController
+import org.osmdroid.config.Configuration
 import org.osmdroid.events.MapListener
 import org.osmdroid.events.ScrollEvent
 import org.osmdroid.events.ZoomEvent
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
-import kotlin.random.Random
-import org.osmdroid.config.Configuration
-import org.osmdroid.util.GeoPoint
-import android.widget.Button
-import android.widget.TextView
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import org.osmdroid.views.overlay.Marker
 import java.util.Locale
+import kotlin.random.Random
 
 
-class MainActivity : AppCompatActivity(), MapListener  {
+class MainActivity : AppCompatActivity(), MapListener {
     private lateinit var binding: ActivityMainBinding
     private val smartGasMeterCollection = SmartGasMeterCollection(mutableListOf())
     private lateinit var adapter: CustomAdapter
@@ -52,11 +53,8 @@ class MainActivity : AppCompatActivity(), MapListener  {
     private var zoomRunnable: Runnable? = null
 
 
-
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var infoTitle: TextView
-    private lateinit var infoContent: TextView
-    private lateinit var closeDrawerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,8 +64,12 @@ class MainActivity : AppCompatActivity(), MapListener  {
         for (i in 1..100) {
             smartGasMeterCollection.collection.add(generateRandomSmartMeter())
         }
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
@@ -92,11 +94,9 @@ class MainActivity : AppCompatActivity(), MapListener  {
         drawerLayout = binding.drawerLayout
         infoTitle = binding.meterInfoTitle
 
-        closeDrawerButton = binding.closeDrawerButton
 
-        closeDrawerButton.setOnClickListener {
-            drawerLayout.closeDrawer(binding.infoDrawer)
-        }
+
+
 
 
         binding.buttonAddMeter.setOnClickListener {
@@ -104,22 +104,54 @@ class MainActivity : AppCompatActivity(), MapListener  {
             //addActivityLauncher.launch(intent)
         }
 
-        binding.drawerRefreshDataButton.setOnClickListener{// TO DO
+        binding.drawerRefreshDataButton.setOnClickListener {// TO DO
             refreshData()
         }
 
 
-
+        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbarMainActivity
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
 
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
+        // Navbar
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_gas_meter_list -> {
+                    openSmartGasMeterListActivity()
+                }
 
+                R.id.nav_gallery -> Toast.makeText(this, "Gallery clicked", Toast.LENGTH_SHORT)
+                    .show()
 
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
 
 
     }
+    private fun openSmartGasMeterListActivity() {
+        val bundle = Bundle()
+        bundle.putParcelableArrayList("SMART_GAS_METERS", ArrayList(smartGasMeterCollection.collection))
+        val intent = Intent(this, SmartGasMeterListActivity::class.java)
+        intent.putExtras(bundle)
+        smartGasMeterListLauncher.launch(intent)
+    }
+    private val smartGasMeterListLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                Toast.makeText(this, "Returned from SmartGasMeterListActivity", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private fun refreshData() {
         TODO("Not yet implemented")
@@ -188,20 +220,31 @@ class MainActivity : AppCompatActivity(), MapListener  {
     }
 
 
-
     fun generateRandomSmartMeter(): SmartGasMeter {
         return SmartGasMeter(
-            gasConsumption = Random.nextDouble(0.0, 5000.0), // Skupna poraba med 0 in 5000 m³
-            flowRate = Random.nextDouble(0.1, 50.0),         // Pretok plina med 0.1 in 50 m³/h
-            relativeReading = Random.nextDouble(0.0, 100.0), // Poraba od zadnjega odčitavanja med 0 in 100 m³
-            absoluteReading = Random.nextDouble(0.0, 5000.0), // Absolutna poraba med 0 in 5000 m³
-            serialNumber = "SM" + Random.nextInt(100000, 999999), // Naključna serijska številka
-            meterType = if (Random.nextBoolean()) "smart" else "mechanical", // Smart ali mehanski števec
-            manufacturer = listOf("GasTech Inc.", "PlinoTech", "SmartGas Co.").random(), // Naključni proizvajalec
-            operatingTime = Random.nextInt(0, 100000),       // Obratovalni čas med 0 in 100000 ur
-            batteryStatus = Random.nextInt(0, 100),          // Stanje baterije med 0% in 100%
-            remoteReadingEnabled = Random.nextBoolean(),     // Ali omogoča daljinsko branje
-            location = listOf("Downtown City Center", "Residential Area", "Industrial Zone", "Rural Farm").random(), // Naključna lokacija
+            gasConsumption = Random.nextDouble(0.0, 5000.0),
+            flowRate = Random.nextDouble(0.1, 50.0),
+            relativeReading = Random.nextDouble(
+                0.0,
+                100.0
+            ), // Poraba od zadnjega odčitavanja med 0 in 100 m³
+            absoluteReading = Random.nextDouble(0.0, 5000.0),
+            serialNumber = "SM" + Random.nextInt(100000, 999999),
+            meterType = if (Random.nextBoolean()) "smart" else "mechanical",
+            manufacturer = listOf(
+                "GasTech Inc.",
+                "PlinoTech",
+                "SmartGas Co."
+            ).random(), // Naključni proizvajalec
+            operatingTime = Random.nextInt(0, 100000),
+            batteryStatus = Random.nextInt(0, 100),
+            remoteReadingEnabled = Random.nextBoolean(),
+            location = listOf(
+                "Downtown City Center",
+                "Residential Area",
+                "Industrial Zone",
+                "Rural Farm"
+            ).random(),
             coordinates = Pair(
                 Random.nextDouble(45.42, 46.88),  // Latitude omejen na Slovenijo
                 Random.nextDouble(13.38, 16.60)   // Longitude omejen na Slovenijo
@@ -235,24 +278,31 @@ class MainActivity : AppCompatActivity(), MapListener  {
                 binding.infoValueType.text = meter.meterType
 
                 binding.infoLabelGasConsumption.text = getString(R.string.info_gas_consumption)
-                binding.infoValueGasConsumption.text = String.format(Locale.US,"%.2f m³", meter.gasConsumption)
+                binding.infoValueGasConsumption.text =
+                    String.format(Locale.US, "%.2f m³", meter.gasConsumption)
 
                 binding.infoLabelFlowRate.text = getString(R.string.info_flow_rate)
-                binding.infoValueFlowRate.text = String.format(Locale.US,"%.2f m³/h", meter.flowRate)
+                binding.infoValueFlowRate.text =
+                    String.format(Locale.US, "%.2f m³/h", meter.flowRate)
 
                 binding.infoLabelRelativeReading.text = getString(R.string.info_relative_reading)
-                binding.infoValueRelativeReading.text = String.format(Locale.US,"%.2f m³", meter.relativeReading)
+                binding.infoValueRelativeReading.text =
+                    String.format(Locale.US, "%.2f m³", meter.relativeReading)
 
                 binding.infoLabelAbsoluteReading.text = getString(R.string.info_absolute_reading)
-                binding.infoValueAbsoluteReading.text = String.format(Locale.US,"%.2f m³", meter.absoluteReading)
+                binding.infoValueAbsoluteReading.text =
+                    String.format(Locale.US, "%.2f m³", meter.absoluteReading)
 
                 binding.infoLabelOperatingTime.text = getString(R.string.info_operating_time)
-                binding.infoValueOperatingTime.text = String.format(Locale.US, "%d ur", meter.operatingTime)
+                binding.infoValueOperatingTime.text =
+                    String.format(Locale.US, "%d ur", meter.operatingTime)
 
                 binding.infoLabelBatteryStatus.text = getString(R.string.battery_status)
-                binding.infoValueBatteryStatus.text = String.format(Locale.US, "%d%%", meter.batteryStatus)
+                binding.infoValueBatteryStatus.text =
+                    String.format(Locale.US, "%d%%", meter.batteryStatus)
 
-                binding.infoLabelRemoteReading.text = getString(R.string.info_remote_reading_enabled)
+                binding.infoLabelRemoteReading.text =
+                    getString(R.string.info_remote_reading_enabled)
                 binding.infoValueRemoteReading.text = if (meter.remoteReadingEnabled) {
                     getString(R.string.info_remote_reading_enabled_value)
                 } else {
@@ -263,7 +313,12 @@ class MainActivity : AppCompatActivity(), MapListener  {
                 binding.infoValueLocation.text = meter.location
 
                 binding.infoLabelCoordinates.text = getString(R.string.info_coordinates)
-                val formattedCoordinates = String.format(Locale.US, "%.4f, %.4f", meter.coordinates.first, meter.coordinates.second)
+                val formattedCoordinates = String.format(
+                    Locale.US,
+                    "%.4f, %.4f",
+                    meter.coordinates.first,
+                    meter.coordinates.second
+                )
                 binding.infoValueCoordinates.text = formattedCoordinates
 
 

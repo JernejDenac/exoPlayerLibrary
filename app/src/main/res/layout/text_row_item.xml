@@ -1,53 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/border_background"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/border_background">
-
+    android:padding="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    >
     <TextView
-        android:id="@+id/textViewDeliveryNumber"
+        android:id="@+id/textViewSerialNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/number_text_rcycler"
-        android:textSize="18sp"
+        android:drawablePadding="@dimen/textView_item_padding"
+        android:text="@string/number_text_recycler"
         android:textColor="@color/titleColor"
-        android:drawablePadding="5dp"/>
-       <!-- app:drawableStartCompat="@drawable/delivery_svgrepo_com" -->
+        android:textSize="@dimen/textView_item_size" />
+    <!-- app:drawableStartCompat="@drawable/delivery_svgrepo_com" -->
 
 
     <TextView
-        android:id="@+id/textViewType"
+        android:id="@+id/textViewManufacturer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/textView_item_padding"
         android:text="@string/type_text_recycler"
-        android:textSize="18sp"
         android:textColor="@color/titleColor"
-        android:drawablePadding="5dp"/>
-       <!-- app:drawableStartCompat="@drawable/coffee_bean_filled_roast_brew_svgrepo_com"-->
+        android:textSize="@dimen/textView_item_size" />
+    <!-- app:drawableStartCompat="@drawable/coffee_bean_filled_roast_brew_svgrepo_com"-->
 
 
     <TextView
-        android:id="@+id/textViewOrigin"
+        android:id="@+id/textViewRelativeReading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="5dp"
+        android:drawablePadding="@dimen/textView_item_padding"
         android:text="@string/battery_status"
-        android:textSize="18sp"
-        android:textColor="@color/titleColor"/>
-        <!--app:drawableStartCompat="@drawable/world_svgrepo_com_1_"-->
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/textView_item_size" />
 
 
     <TextView
-        android:id="@+id/textViewFlavor"
+        android:id="@+id/textViewAbsoluteReading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="5dp"
-        android:text="@string/location"
-        android:textSize="18sp"
-        android:textColor="@color/titleColor"/>
-       <!-- app:drawableStartCompat="@drawable/world_svgrepo_com_1_"-->
+        android:drawablePadding="@dimen/textView_item_padding"
+        android:text="@string/info_relative_reading"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/textView_item_size" />
+
+
+    <TextView
+        android:id="@+id/textViewBatteryStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/textView_item_padding"
+        android:text="@string/info_absolute_reading"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/textView_item_size" />
+
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/textView_item_padding"
+        android:text="@string/info_location"
+        android:textColor="@color/titleColor"
+        android:textSize="@dimen/textView_item_size" />
+
+
 </LinearLayout>

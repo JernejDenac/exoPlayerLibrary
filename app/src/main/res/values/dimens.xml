@@ -23,4 +23,7 @@
     <dimen name="button_margin_bottom">44dp</dimen>
     <dimen name="close_button_margin_top">25dp</dimen>
 
+    <!-- RecyclerView Dimensions -->
+    <dimen name="textView_item_size">18sp</dimen>
+    <dimen name="textView_item_padding">5sp</dimen>
 </resources>

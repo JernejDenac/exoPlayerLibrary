@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SmartGasMeterList"
+            android:name=".SmartGasMeterListActivity"
             android:exported="false" />
         <activity
             android:name=".AddActivity"
