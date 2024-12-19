@@ -56,14 +56,34 @@ class MainActivity : AppCompatActivity(), MapListener {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var infoTitle: TextView
 
+    private lateinit var notificationHelper: NotificationHelper
+
+    lateinit var app: MyApplication
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        for (i in 1..100) {
-            smartGasMeterCollection.collection.add(generateRandomSmartMeter())
+
+
+        //Ustvarjanje podatkov ali prejeemanje iz datoteke
+        app = application as MyApplication
+        val loadedData = app.loadData()
+        smartGasMeterCollection.collection.addAll(loadedData)
+
+        if (smartGasMeterCollection.collection.isEmpty()) {
+            Log.d("SmartGasMeter", "Zbirka je prazna. Generiram nove podatke.")
+            for (i in 1..100) {
+                smartGasMeterCollection.collection.add(generateRandomSmartMeter())
+            }
+            app.saveData(smartGasMeterCollection.collection)
+        } else {
+            Log.d("SmartGasMeter", "Naloženi podatki iz datoteke: $loadedData")
         }
+
+
+        //ZEMLJEVID IN LOKACIJA
         if (ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -76,7 +96,6 @@ class MainActivity : AppCompatActivity(), MapListener {
                 1 // Koda za zahtevo dovoljenja
             )
         } else {
-            // Lokacija je že dovoljena -> inicializiraj zemljevid
             initializeMap()
         }
 
@@ -99,15 +118,11 @@ class MainActivity : AppCompatActivity(), MapListener {
 
 
 
-        binding.buttonAddMeter.setOnClickListener {
-            val intent = Intent(this, AddActivity::class.java)
-            //addActivityLauncher.launch(intent)
-        }
+
 
         binding.drawerRefreshDataButton.setOnClickListener {// TO DO
             refreshData()
         }
-
 
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbarMainActivity
@@ -137,19 +152,54 @@ class MainActivity : AppCompatActivity(), MapListener {
             true
         }
 
+        notificationHelper = NotificationHelper(this)
+        checkBatteryAndSendNotification()
+    }//oncreate end
 
+
+    private fun checkBatteryAndSendNotification() {
+        for (meter in smartGasMeterCollection.collection) {
+            if (meter.batteryStatus <= 5) {
+                notificationHelper.sendLowBatteryNotification(meter.serialNumber)
+            }
+        }
     }
+
+
     private fun openSmartGasMeterListActivity() {
         val bundle = Bundle()
-        bundle.putParcelableArrayList("SMART_GAS_METERS", ArrayList(smartGasMeterCollection.collection))
+        bundle.putParcelableArrayList(
+            "SMART_GAS_METERS",
+            ArrayList(smartGasMeterCollection.collection)
+        )
         val intent = Intent(this, SmartGasMeterListActivity::class.java)
         intent.putExtras(bundle)
         smartGasMeterListLauncher.launch(intent)
     }
+
     private val smartGasMeterListLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                Toast.makeText(this, "Returned from SmartGasMeterListActivity", Toast.LENGTH_SHORT).show()
+                val updatedMeters =
+                    result.data?.getParcelableArrayListExtra<SmartGasMeter>("UPDATED_METERS")
+                if (updatedMeters != null) {
+
+                    Toast.makeText(
+                        this,
+                        "Vrnjeni podatki niso null!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+
+                    smartGasMeterCollection.collection.clear()
+                    smartGasMeterCollection.collection.addAll(updatedMeters)
+
+                    app.saveData(smartGasMeterCollection.collection)
+
+                    addSmartMeterMarkers()
+                    mMap.invalidate()
+
+                }
             }
         }
 
@@ -157,6 +207,7 @@ class MainActivity : AppCompatActivity(), MapListener {
         TODO("Not yet implemented")
     }
 
+    //ZEMLJEVID
     private fun initializeMap() {
         mMap = binding.osmmap
         mMap.setTileSource(TileSourceFactory.MAPNIK)
@@ -329,5 +380,6 @@ class MainActivity : AppCompatActivity(), MapListener {
         }
         mMap.invalidate() // Osveži zemljevid, da prikaže markerje
     }
+
 
 }

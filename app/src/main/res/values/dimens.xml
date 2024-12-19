@@ -26,4 +26,10 @@
     <!-- RecyclerView Dimensions -->
     <dimen name="textView_item_size">18sp</dimen>
     <dimen name="textView_item_padding">5sp</dimen>
+
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="margin_input_field">16sp</dimen>
+    <dimen name="margin_input_field_first">32dp</dimen>
+    <dimen name="recycler_margin">18dp</dimen>
+    <item name="guideline_percent" type="dimen" format="float">0.91</item>
 </resources>

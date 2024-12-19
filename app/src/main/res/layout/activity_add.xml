@@ -9,12 +9,136 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarAddActivity"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- TextInputLayout for Serial Number -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSerialNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_input_field"
+        android:layout_marginTop="@dimen/margin_input_field_first"
+        android:hint="@string/serial_number_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarAddActivity">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/serialNumberInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="@dimen/text_size_medium" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- TextInputLayout for Manufacturer -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutManufacturer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_input_field"
+        android:layout_marginTop="@dimen/margin_input_field"
+        android:hint="@string/manufacturer_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSerialNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/manufacturerInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="@dimen/text_size_medium" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Relative Reading -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutRelativeReading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_input_field"
+        android:layout_marginTop="@dimen/margin_input_field"
+        android:hint="@string/relative_reading_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutManufacturer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/relativeReadingInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textSize="@dimen/text_size_medium" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Absolute Reading -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutAbsoluteReading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/absolute_reading_hint"
+        android:layout_marginHorizontal="@dimen/margin_input_field"
+        android:layout_marginTop="@dimen/margin_input_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutRelativeReading">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/absoluteReadingInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textSize="@dimen/text_size_medium" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Battery Status -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutBatteryStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/battery_status_hint"
+        android:layout_marginHorizontal="@dimen/margin_input_field"
+        android:layout_marginTop="@dimen/margin_input_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutAbsoluteReading">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/batteryStatusInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="@dimen/text_size_medium" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Location -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutLocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/location"
+        android:layout_marginHorizontal="@dimen/margin_input_field"
+        android:layout_marginTop="@dimen/margin_input_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutBatteryStatus">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/locationInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_medium" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

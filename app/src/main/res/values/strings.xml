@@ -6,7 +6,7 @@
     <string name="battery_status">Battery</string>
     <string name="location">Location</string>
     <string name="settings_button">settings_button\n</string>
-    <string name="delete_confirmation_message">Do you wish to delete this element?</string>
+    <string name="delete_confirmation_message">Do you wish to delete element %1$s?</string>
     <string name="delete_button_text">Delete\n</string>
     <string name="cancel_button_text">Cencel</string>
 
@@ -38,4 +38,14 @@
     <string name="absolute_reading">Absolute Reading </string>
     <string name="battery">Battery </string>
     <string name="location_one">Location </string>
+
+    <string name="add_button">Add </string>
+    <string name="serial_number_hint">Serial Number\n</string>
+    <string name="manufacturer_hint">Manufacturer\n</string>
+    <string name="battery_status_hint">Battery Status (%)</string>
+    <string name="absolute_reading_hint">Absolute Reading (m³)</string>
+    <string name="relative_reading_hint">Relative Reading (m³)</string>
+    <string name="add_button_add_page">Add</string>
+    <string name="check_button">check\n</string>
+
 </resources>

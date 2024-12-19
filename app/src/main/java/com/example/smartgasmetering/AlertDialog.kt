@@ -12,8 +12,9 @@ class DeleteConfirmationDialogFragment(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
+            val serialNumber = arguments?.getString("serialNumber") ?: "Unknown"
             val builder = AlertDialog.Builder(it)
-            builder.setMessage(getString(R.string.delete_confirmation_message))
+            builder.setMessage(getString(R.string.delete_confirmation_message, serialNumber))
                 .setPositiveButton(getString(R.string.delete_button_text)) { dialog, id ->
                     onConfirm()
                 }

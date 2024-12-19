@@ -2,8 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/baseline_settings_24"
-        android:title="@string/settings_button"
-        app:showAsAction="always" />
+        android:id="@+id/action_add"
+        android:icon="@drawable/add_button"
+        android:title="@string/add_button"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_check"
+        android:icon="@drawable/check_button"
+        android:title="@string/check_button"
+        app:showAsAction="ifRoom"
+        android:visible="false" />
 </menu>
