@@ -12,6 +12,27 @@ Smart Gass Metering aplikacija omogoča prikaz lokacij pametnih plinomerov na in
 * Prilagodljive kontrolne komponente uporabniškega vmesnika
 * Podpora za obvestila in zaklenjeni zaslon
 
+## Prednosti ✅
+* Prilagajanje in razširjanje funkcionalnosti
+* Podpora za različne avdio in video formate
+* Redno posodablanje
+
+## Slabosti ❌
+* Velikost knjižnice
+* 
+
+## Licenca 📜
+
+ Apache License 2.0, ki dovoljuje prosto uporabo, distribucijo in spreminjanje programske opreme.
+
+## Število zvezdic, forkov ⭐
+* Zvezdice: 21,8k
+* forki: 6k
+
+## Vzdrževanje projekta 🔧
+* Zadnja različica exoplayer:2.19.1(2024-04-03)
+* Migacija na AndoirdX Media3
+
 ### Zemljevid lokacij: 🗺️
 
 Interaktivni zemljevid z vsemi plinomeri, prikazanimi kot označevalniki (markerji).
