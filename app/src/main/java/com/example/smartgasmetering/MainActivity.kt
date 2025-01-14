@@ -114,17 +114,11 @@ class MainActivity : AppCompatActivity(), MapListener {
         infoTitle = binding.meterInfoTitle
 
 
-
-
-
-
-
-
         binding.drawerRefreshDataButton.setOnClickListener {// TO DO
             refreshData()
         }
 
-        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        val navigationView = binding.navigationView
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbarMainActivity
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
@@ -144,8 +138,13 @@ class MainActivity : AppCompatActivity(), MapListener {
                     openSmartGasMeterListActivity()
                 }
 
-                R.id.nav_gallery -> Toast.makeText(this, "Gallery clicked", Toast.LENGTH_SHORT)
-                    .show()
+                R.id.nav_videos -> {
+                    val intent = Intent(this, VideoActivity::class.java)
+                    startActivity(intent)
+                    Log.d("VideoActivity", "List  video menu clicked")
+                    Toast.makeText(this, "List video menu clicked", Toast.LENGTH_SHORT).show()
+
+                }
 
             }
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -278,7 +277,7 @@ class MainActivity : AppCompatActivity(), MapListener {
             relativeReading = Random.nextDouble(
                 0.0,
                 100.0
-            ), // Poraba od zadnjega odčitavanja med 0 in 100 m³
+            ),
             absoluteReading = Random.nextDouble(0.0, 5000.0),
             serialNumber = "SM" + Random.nextInt(100000, 999999),
             meterType = if (Random.nextBoolean()) "smart" else "mechanical",
@@ -286,7 +285,7 @@ class MainActivity : AppCompatActivity(), MapListener {
                 "GasTech Inc.",
                 "PlinoTech",
                 "SmartGas Co."
-            ).random(), // Naključni proizvajalec
+            ).random(),
             operatingTime = Random.nextInt(0, 100000),
             batteryStatus = Random.nextInt(0, 100),
             remoteReadingEnabled = Random.nextBoolean(),

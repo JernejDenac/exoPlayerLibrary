@@ -53,6 +53,13 @@ dependencies {
     implementation(libs.material.v190)
     implementation(libs.androidx.core.ktx)
     implementation(libs.gson)
+    implementation("androidx.media3:media3-exoplayer:1.0.2")
+    implementation("androidx.media3:media3-exoplayer-dash:1.0.2")
+    implementation("androidx.media3:media3-ui:1.0.2")
+
+
+
+
 
 
 }

@@ -47,5 +47,6 @@
     <string name="relative_reading_hint">Relative Reading (m³)</string>
     <string name="add_button_add_page">Add</string>
     <string name="check_button">check\n</string>
+    <string name="videos">Videos</string>
 
 </resources>
