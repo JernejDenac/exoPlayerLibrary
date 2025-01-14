@@ -1,6 +1,6 @@
 # ExoPlayer
 
-Smart Gass Metering aplikacija omogoča prikaz lokacij pametnih plinomerov na interaktivnem zemljevidu. Namen aplikacije je pomagati tehnikom in upravljavcem pri iskanju in upravljanju plinomerov v realnem času. Poleg tega aplikacija omogoča odčitavanje podatkov na daljavo, kot so trenutna poraba plina, stanje naprave in zadnji pregled.
+ExoPlayer je prilagodljiva knjižnica za predvajanje videoposnetkov, avdio vsebin. Prav tako omogoča neposredni prenos.
 
 ## Funkcionalnosti 📋
 * Adaptivno pretakanje -> DASH, HLS in SmoothStreaming
@@ -15,11 +15,12 @@ Smart Gass Metering aplikacija omogoča prikaz lokacij pametnih plinomerov na in
 ## Prednosti ✅
 * Prilagajanje in razširjanje funkcionalnosti
 * Podpora za različne avdio in video formate
-* Redno posodablanje
+* Redno posodablanje/Aktivna skupnost
 
 ## Slabosti ❌
 * Velikost knjižnice
 * Zakasnitve pri predvajanju RTSP tokov
+* Poraba baterije
 
 ## Licenca 📜
 
@@ -31,15 +32,20 @@ Smart Gass Metering aplikacija omogoča prikaz lokacij pametnih plinomerov na in
 
 ## Vzdrževanje projekta 🔧
 * Zadnja različica exoplayer:2.19.1(2024-04-03)
-* Migacija na AndoirdX Media3
+* Število razvijalcev 239
+* Migacija na AndroidX Media3
 
-## Primeri uporabe 👀
+## Primer uporabe 👀
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a53c60a3-da20-47b7-8b0b-2b669a7dcd0c"  1" width="20%" style="margin-right: 5%;" />
- <img src="https://github.com/user-attachments/assets/a9c85d95-2e80-46a4-ba84-7bbb2e0938b4"  2" width="20%">
+ <img src="https://github.com/user-attachments/assets/a9c85d95-2e80-46a4-ba84-7bbb2e0938b4"   1" width="20%" 
+ style="margin-right: 5%;" />
+ <img src="https://github.com/user-attachments/assets/a53c60a3-da20-47b7-8b0b-2b669a7dcd0c"  2" width="20%">
 </p>
 
+```sh
+ pickVideo.launch("video/*")
+```
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9024306b-9d00-44c8-8a2e-eb47197d2019"  1" width="20%" style="margin-right: 5%;" />
@@ -47,9 +53,21 @@ Smart Gass Metering aplikacija omogoča prikaz lokacij pametnih plinomerov na in
 </p>
 
 ```sh
- pickVideo.launch("video/*")
+ private fun playVideo(videoUri: Uri) {
+        exoPlayer = ExoPlayer.Builder(this).build().also { player ->
+            binding.playerView.player = player
+            val mediaItem = MediaItem.fromUri(videoUri)
+            player.setMediaItem(mediaItem)
+            player.prepare()
+            player.playWhenReady = true
+        }
+    }
 ```
+* Also omogoča uporabo nove instance player znotraj bloka
+* Ustvari MediaItem iz URI-ja, ki kaže na lokacijo videoposnetka
+* Začne nalagati video iz URI-ja, Dekodira video in zvok, da pripravi predvajanje.
 
+  
 Možnost filtriranja po statusu plinomerov (npr. "Aktiven," "Izklopljen").
 Možnost iskanja plinomerja po ID-ju ali lokaciji.
 ### Podrobnosti plinomera: 📈
