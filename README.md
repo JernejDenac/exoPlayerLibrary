@@ -19,7 +19,7 @@ Smart Gass Metering aplikacija omogoča prikaz lokacij pametnih plinomerov na in
 
 ## Slabosti ❌
 * Velikost knjižnice
-* 
+* Zakasnitve pri predvajanju RTSP tokov
 
 ## Licenca 📜
 
@@ -33,11 +33,22 @@ Smart Gass Metering aplikacija omogoča prikaz lokacij pametnih plinomerov na in
 * Zadnja različica exoplayer:2.19.1(2024-04-03)
 * Migacija na AndoirdX Media3
 
-### Zemljevid lokacij: 🗺️
+## Primeri uporabe 👀
 
-Interaktivni zemljevid z vsemi plinomeri, prikazanimi kot označevalniki (markerji).
-Klik na marker prikaže podrobnosti o plinomeru.
-### Filtriranje in iskanje: 👀
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a53c60a3-da20-47b7-8b0b-2b669a7dcd0c"  1" width="20%" style="margin-right: 5%;" />
+ <img src="https://github.com/user-attachments/assets/a9c85d95-2e80-46a4-ba84-7bbb2e0938b4"  2" width="20%">
+</p>
+
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9024306b-9d00-44c8-8a2e-eb47197d2019"  1" width="20%" style="margin-right: 5%;" />
+  <img src="https://github.com/user-attachments/assets/d77418f4-0d58-4a58-a6b7-31f99f96c172"  2" width="20%">
+</p>
+
+```sh
+ pickVideo.launch("video/*")
+```
 
 Možnost filtriranja po statusu plinomerov (npr. "Aktiven," "Izklopljen").
 Možnost iskanja plinomerja po ID-ju ali lokaciji.
