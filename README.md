@@ -34,6 +34,9 @@ ExoPlayer je prilagodljiva knjižnica za predvajanje videoposnetkov, avdio vsebi
 * Zadnja različica exoplayer:2.19.1(2024-04-03)
 * Število razvijalcev 239
 * Migacija na AndroidX Media3
+   * Poenotenje medijskih API-jev
+   * Združljivost s drugimi AndroidX komponentami
+   * Zagotovilo za prihodnji razvoj/posodabljanje
 
 ## Primer uporabe 👀
 
