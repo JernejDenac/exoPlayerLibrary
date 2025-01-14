@@ -1,8 +1,16 @@
-# Smart Gass Metering
+# ExoPlayer
 
 Smart Gass Metering aplikacija omogoča prikaz lokacij pametnih plinomerov na interaktivnem zemljevidu. Namen aplikacije je pomagati tehnikom in upravljavcem pri iskanju in upravljanju plinomerov v realnem času. Poleg tega aplikacija omogoča odčitavanje podatkov na daljavo, kot so trenutna poraba plina, stanje naprave in zadnji pregled.
 
-## Funkcionalnosti aplikacije 📋
+## Funkcionalnosti 📋
+* Adaptivno pretakanje -> DASH, HLS in SmoothStreaming
+* Zaščita vsebin -> DRM tehnologije
+* Podnapisi
+* Zvočne sledi
+* Predpomnenje in prenos vsebin
+* prilagoditev in razširitev komponent(po potrebi)
+* Prilagodljive kontrolne komponente uporabniškega vmesnika
+* Podpora za obvestila in zaklenjeni zaslon
 
 ### Zemljevid lokacij: 🗺️
 
